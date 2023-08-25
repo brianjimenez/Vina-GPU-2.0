@@ -1,6 +1,7 @@
 # Need to be modified according to different users
-BOOST_LIB_PATH=../../boost_1_77_0
-OPENCL_LIB_PATH=/usr/local/cuda
+# On Ubuntu, run first: apt install libboost-all-dev libthread-pool-dev
+BOOST_LIB_PATH=/usr/include/boost
+OPENCL_LIB_PATH=/usr/local/cuda-12
 OPENCL_VERSION=-DOPENCL_2_0
 GPU_PLATFORM=-DNVIDIA_PLATFORM
 
@@ -10,9 +11,9 @@ VINA_GPU_INC_PATH=-I./lib -I./OpenCL/inc
 OPENCL_INC_PATH=-I$(OPENCL_LIB_PATH)/include
 LIB1=-lboost_program_options -lboost_system -lboost_filesystem -lOpenCL
 LIB2=-lstdc++ -lstdc++fs
-LIB3=-lm -lpthread
+LIB3=-lm -lboost_thread -lpthread
 LIB_PATH=-L$(BOOST_LIB_PATH)/stage/lib -L$(OPENCL_LIB_PATH)/lib64
-SRC=./lib/*.cpp ./OpenCL/src/wrapcl.cpp $(BOOST_LIB_PATH)/libs/thread/src/pthread/thread.cpp $(BOOST_LIB_PATH)/libs/thread/src/pthread/once.cpp #../boost_1_77_0/boost/filesystem/path.hpMACRO=-DAMD_PLATFORM -DDISPLAY_SUCCESS -DDISPLAY_ADDITION_INFO
+SRC=./lib/*.cpp ./OpenCL/src/wrapcl.cpp $(BOOST_LIB_PATH)/thread/thread.hpp $(BOOST_LIB_PATH)/thread/once.hpp
 MACRO=$(OPENCL_VERSION) $(GPU_PLATFORM) #-DDISPLAY_SUCCESS -DDISPLAY_ADDITION_INFO
 all:out
 out:./main/main.cpp
